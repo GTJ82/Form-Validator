@@ -19,6 +19,7 @@ function showSuccess(input) {
     formControl.className = 'form-control success';
 }
 
+// Checks to see if email is valid
 function isValidEmail(input) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (re.test(input.value.trim())) {
@@ -28,6 +29,7 @@ function isValidEmail(input) {
     };
 }
 
+// Checks to see if passwords match
 function checkPassword(input1, input2) {
     if (input1.value === input2.value) {
         showSuccess(input1)
@@ -36,6 +38,7 @@ function checkPassword(input1, input2) {
     };
 }
 
+// This is a check to make sure each input is filled out
 function checkInput(inputArr) {
     inputArr.forEach(function (input) {
         if (input.value.trim() === '') {
@@ -46,6 +49,7 @@ function checkInput(inputArr) {
     })
 }
 
+// This checks to make sure that all lengths of inputs are correct 
 function checkLength(input, min, max) {
     if (input.value.length < min) {
         showError(input, `${getFieldName(input)} must be at least ${min}
@@ -57,6 +61,7 @@ function checkLength(input, min, max) {
     }
 }
 
+// This grabs the fieldname that is currently being used
 function getFieldName(input) {
     return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 }
@@ -66,8 +71,8 @@ form.addEventListener("submit", function (e) {
     e.preventDefault();
 
     checkInput([username, email, password, password2]);
+    checkPassword(password, password2);
     checkLength(username, 3, 15);
     checkLength(password, 6, 25);
     isValidEmail(email);
-    checkPassword(password, password2);
 })
